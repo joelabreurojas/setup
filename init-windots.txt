@@ -1,0 +1,579 @@
+1. Setup
+  a. Create a restore point
+    - Just search it... assign it 5%
+
+  b. Windows Update
+    - Check for... updates
+
+  c. Power Option Settings
+    - Ctrl + R, type and run cmd
+    - Type and run powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+    - Go to Control Panel > Hardware and Sound > Power Options
+    - Select the Ultimate Performance plan (don't if you use a laptop)
+    - Click Change plan settings and also click Change advanced power settings
+    - Click Apply and Ok after the following configuration:
+      Hard disk > Turn off hard disk after
+	On battery (Minutes): 0
+	Plugged in (Minutes): 0
+
+      Sleep > Sleep after:
+        On battery (Minutes): 0
+        Plugged in (Minutes): 0
+
+      PCI Express > Link State Power Management:
+        On battery: off
+        Plugged in: off
+
+      Display > Turn off display after
+        On battery (Minutes): 10
+        Plugged in (Minutes): 10
+
+      Processor power management
+         Minimum processor state
+          On battery (%): 0
+          Plugged in (%): 0
+         Maximum processor state
+          On battery (%): 100
+          Plugged in (%): 100
+
+  d. Windows Settings
+    - Go to Settings > Privacy
+    - Under General, deselect all
+    - Other sections, if you use a feature, deselect the applications you don't use
+    - Other sections, if you DON'T use the feature, deselect the feature
+
+    - Go to Settings > System > Display
+    - Brightness 75, Size 125% and Landscape
+    - Click on Night light settings
+    - Strength 90 and select Turn on now
+
+    - Go to Settings > System > Notifications & actions
+    - Deselect Get notifications from apps and other senders
+
+    - Go to Settings > System > Storage
+    - Enable
+    - Go to Configurate Storage Sense and set it to your preference
+    - For me: Every week, select Delete temporary files, 30 days and Never
+
+    - Go to Settings > System > Shared experiences
+    - Deselect all
+
+    - Go to Settings > Gaming
+    - Under Captures, deselect Record in the background and Capture mouse
+    - Under Game Mode, deselect Game Mode
+
+    - Go to Settings > Time & Language > Language
+    - Set English (United States) as primary and Spanish (Spain) as secondary
+
+    - Go to Settings > Devices > Mouse
+    - Click Additional mouse options
+    - Under Pointer Options, deselect Enhace pointer precision and set Pointer speed to ~80
+
+    - Go to Settings > Personalization
+    - Under Start, deselect all except Show app list in Start menu and Show account-related notifications
+    - Under Taskbar, select only Use small taskbar buttons and change the location to Top
+
+    - Go to Settings > Update & Security > Delivery Otimization
+    - Turn off Allow downloads from other PCs
+    - Click Advanced options
+    - Select Percentage of measured bandwidth
+    - Select both limits with 5% (the minimum)
+    - In Upload settings, select both limits with 5% (the minimum)
+
+  e. Drive Optimization
+   - If you're a HDD user, go to the Defragment and Optimize Drives section at https://www.youtube.com/watch?v=oaVeT9Ayfc4
+
+  f. Disable Unwanted Startup Programs
+    - Open Task Manager
+    - Under Startup, disable programs that you don't need to run all the time
+
+    - Search User Acount Controller and set it to Never notify.
+
+  g. Delete Unnecessary Stuff
+    - Ctrl + R, type and run temp, delete the contents
+    - Ctrl + R, type and run %temp%, delete the contents
+    - Delete the contents of the Recycle Bin
+
+    - Open Control Panel
+    - Go to System and Security > Administrative Tools
+    - Open Event Viewer
+    - Clear log in any section of Windows Logs
+
+    - Search This PC and see the properties of your Local Disk
+    - Click on Disk Cleanup
+    - Select what do you want to remove
+    - Go ahead
+
+    - Go to Settings > Apps > Apps & features
+    - Uninstall the programs you don't want
+
+    - Open cmd with admin permissions
+    - Tpe and execute cd %Programfiles(x86)%/Microfost/Edge/*yourversion/Installer
+    - Type and execute setup --uninstall --force-uninstall --system-level 
+
+  h. Registry Tweak
+    - Ctrl + R, type and run regedit
+
+    - In Registry Editor, go to HKEY_CURRENT_USER > Control Panel > Desktop
+    - Change the value of MenuShowDelay to 10
+
+    - In Registry Editor, go tp HKEY_CURRENT_USER > Control Panel > Mouse
+    - Change the value of MouseHoverTime to 10
+
+    - In Registry Editor, go to HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Windows NT > Current Version > Multimedia > SystemProfile
+    - Change the value of SystemResponsiveness to 0
+
+    - In Registry Editor, go to HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Windows NT > Current Version > Multimedia > SystemProfile > Task > Games
+    - Change the value of GPU Priority to 8
+    - Change the value of Priority to 6
+
+    - In Registry Editor, go to HKEY_LOCAL_MACHINE > System > Control
+    - Change the value of WaitToKill to 2000
+
+    - In Registry Editor, go to HKEY_CURRENT_USER > Control Panel > Desktop
+    - Create a WaitToKillAppTimeout string and set it to 2000
+    - Create a HungAppTimeout string and set it to 2000
+    - Create an AutoEndTasks string and set it to 1
+
+  i. Reduce the Runtime service & Increase your processors
+    - Ctrl + R, type and run msconfig
+    - Go to Services and select Hide all Microsoft services
+    - Deselect the services you don't want
+
+    - Under Boot, type 30 in Timeout
+    - Click Advanced options...
+    - Select the maximum number of processors
+
+  j. Manage Special Features
+    - Go to View advanced system settings > Performance settings
+
+    - Under Visual Effects, select only the following:    
+      Enable Peek
+      Show shadows under mouse pointer
+      Show thumbnails instead of icons
+      Smooth edges of screen fonts
+      Use drop shadows for icon labels on the desktop
+
+    - Under Advanced, click Change
+    - Select Automatically manage paging file size for all drives
+
+    - Open File Explorer
+    - Under View, select File name extensions
+
+  k. Additional Performance
+    - Open Task Manager and look for your graphics card in the GPU section
+    - Nvidia user? https://www.youtube.com/watch?v=Lvi-bg1TYBM
+    - AMD user? https://www.youtube.com/watch?v=WN8qbzHEe8g
+    - I'm an Intel user, so F.
+    
+    Cheap comparison: Nvidia (gpu) - AMD (neutral) - Intel (cpu)
+
+  l. Scan for and Remove Virus or Malware
+    - Go to Windows Security > Virus & threat protection
+    - Run a new advanced scan
+    - Select Full scan
+    - Click Scan now
+
+    For advanced help, go to https://www.youtube.com/watch?v=HawNtYduDi4
+
+  m. Get a Better DNS
+    - Go to Settings > Network & Internet
+    - Click Change adapter options
+    - Go to Ethernet or Wi-Fi Properties > Internet Protocol Version 4 Properties
+    - Select Use the following DNS server addresses
+
+      Preferred DNS server: 1 . 1 . 1 . 1
+      Alternate DNS server: 1 . 0 . 0 . 1
+
+  n. Goodbye Telemetry (all options are optional)
+    - Download O&O ShutUp
+
+    - Select Local Machine
+    - Under Privacy, select all except biometrical features
+    - Under Activity History and Clipboard, select all
+    - Under App Privacy, select all except Camera and Microphone
+    - Under Security, select Disable telemetry (bye)
+    - Under Microsoft Edge (new and legacy version), select all (die pls)
+    - Under Cortana (Personal Assitant), select all (who are you?)
+    - Under Location Services, select all
+    - Under User Behavior, select all
+    - Under Windows Update, select only peer-to-peer, speech and driver updates
+    - Under Windows Explorer, select all
+    - Under Microsoft Defender and Microsoft SpyNet, select submitting data samples
+    - Under Taskbar, select all
+    - Under Miscellaneous, select all except Key Management Service and Network Connectivity
+
+    - Select Current User
+    - Under Privacy, select all
+    - Under Activity History and Clipboard, select all
+    - Under App Privacy, select all except Camera and Microphone
+    - Under Microsoft Edge (new and legacy version), select all (die pls)
+    - Under Cortana (Personal Assitant), select all (who are you?)
+    - Under Synchronization of Windows Settings, select only synchronization of language settings
+    - Under User Behavior, select all
+    - Under Windows Explorer, select all
+    - Under Lock Screen, select all
+    - Under Search select all
+    - Under Taskbar, select all
+    - Under Miscellaneous, select all
+
+    Tip: You can import/export your configuration
+
+  o. Don't STEAL my bandwidth, Microsoft...
+    - Ctrl + R, type and run gpedit
+    - Go to Computer Configuration > Administrative Templates > Network > QoS Packet Scheduler > Limit reservable bandwidth
+    - Select Enable and type 0 for Bandwidth limit (%)
+    - Ctrl + R, type and run cmd
+    - In cmd, type and run gpupdate
+
+    - Ctrl + R, type and run regedit
+    - Go to HKEY_LOCAL_MACHINE > SOFTWARE > Policies > Microsoft
+    - Create a new key called Psched
+    - In Psched, create a new DWORD (32-bit) Value called NonBestEffortLimit  q. REBOOT
+
+  p. REBOOT
+
+2. Applications
+
+  Vivaldi
+    - Install: https://vivaldi.com/download/
+    - Synchronize your account
+    - Configuration:
+        - General: Unselect the following
+          Show Exit Confirmation Dialog
+          Show Close Window Confirmation Dialog
+          Automatically Offer to Translate Pages
+
+        - Appearance: Select the following
+          Use Native Window
+          Face Colors in Background
+          Use Simple Scollbars
+          Use Monochrome Settings Icons
+          Menu Icon
+          Open Settings in a tab
+
+        - Theme: https://themes.vivaldi.net/browse?s=nordots
+
+        - Privacy:
+          Deselect DNS and Form Assist,
+          Select Block Trackers,
+          Select Easy Privacy in Manages Sources,
+          Deselect Save Passwords,
+          Select Block All Third Cookies
+      
+  PPSSPP
+    - Install: https://www.ppsspp.org/download/
+    - Import games
+    - Activate pause when not focused
+    - Change controls JKLI to Arrow keys and viceversa
+
+  Discord
+    - Install: https://discord.com/download
+    - Test microphone
+
+  Steam
+    - Install:
+    - Download games
+
+  MEGA
+    - Install: https://mega.io/desktop
+    - Import backup
+
+  VLC
+    - Install: https://www.videolan.org/vlc/download-windows.html
+    - Set as default
+
+  Free Download Manager
+   - Install: https://www.freedownloadmanager.org
+   - Set as default
+   - One single download at time
+
+  BitWarden
+    - Change theme to Nord
+
+  OBS
+    - Install: https://obsproject.com/download
+
+  Shotcut
+    - Install: https://www.shotcut.org/download/
+
+  Files
+    - Install: https://files.community/download
+    - Change theme to Nord
+
+  Powershell
+    - Update Powershell from Microsoft Store
+    - Install chocolately
+    - Install sudo
+
+    - Terminal Icons:
+      Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+
+    - Z:
+      Install-Module -Name z -Force
+
+    - PSReadLine:
+      Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+
+    - $PROFILE:
+      New-Item -Path $PROFILE -TYPE FILE -Force
+      Copy MicrosoftPowerShell_profile.ps1 from Source in ...\Documents\PowerShell
+
+  Microsoft Terminal
+    - Install Microsoft Terminal from Microsoft Store
+
+    - Fonts: https://www.nerdfonts.com
+      Extract Fira Code in C:\Windows\Fonts
+
+    - Settings:
+      - JSON File
+        Hide Microsoft Powershell
+        Move Powershell to the top (for now...)
+
+        Add in schemes:
+          {
+            "name": "Nord",
+
+            "foreground": "#D8DEE9",
+            "background": "#2E3440",
+
+            "selectionBackground": "#434C5E",
+            "cursorColor": "#81A1C1",
+
+            "black": "#3B4252",
+            "red": "#BF616A",
+            "green": "#A3BE8C",
+            "yellow": "#EBCB8B",
+            "blue": "#81A1C1",
+            "purple": "#B48EAD",
+            "cyan": "#88C0D0",
+            "white": "#E5E9F0",
+
+            "brightBlack": "#4C566A",
+            "brightRed": "#BF616A",
+            "brightGreen": "#A3BE8C",
+            "brightYellow": "#EBCB8B",
+            "brightBlue": "#81A1C1",
+            "brightPurple": "#B48EAD",
+            "brightCyan": "#8FBCBB",
+            "brightWhite": "#ECEFF4"
+          }
+
+          Obtained from https://raw.githubusercontent.com/thismat/nord-windows-terminal/main/nord.json
+
+      - Startup
+        Select Powershell as default profile (for now)
+        Select Windows Terminal as default terminal
+
+      - Appearance
+        Enable acrylic material in the tab row
+
+      - Default > Appearance > Transparency
+        Background opacity 50%
+        Enable acrylic material
+
+  Startship:
+    - Install: winget install starship
+    - clink: winget install clink (to use this shell in cmd)
+    - Copy starship.lua in %LOCALAPPDATA%/clink
+
+  Visual Studio Code
+    -
+
+  Nvim
+    - Install via winget: winget install --id=Neovim.Neovim -e
+    - Make an init.vim
+
+  Git
+    - Install via winget: winget install --id Git.Git -e --source winget
+    - Config:
+      git config --global user.name "[your_name]"
+      git config --global user.email [your_email]
+      git config --global core.editor "nvim --wait"
+      git config --global core.autocrls true
+
+  Kickstart.nvim
+    - Install CMake
+    - Install GCC
+    - git clone https://github.com/j4breu/kickstart.nvim.git $env:USERPROFILE\AppData\Local\nvim\
+
+  SSH:
+    - Create: ssh-keygen -t ed25519 -C "[your_email]"
+    - Copy: clip < ~/.ssh/id_ed25519.pub
+    - Paste in the Gihub SSH key
+
+  Node:
+    - Install: winget install -e --id OpenJS.NodeJS
+    - NVM:
+      In powershell as administrator
+      choco install nvm
+    - Yarn: npm install --global yarn
+
+    - Uninstall:
+
+  WSL
+    - Ctrl + R, type and run appwiz.cpl
+    - Click Turn Windows features on/off
+    - Enable: Windows Hypervisor Platform, Windows Subsystem for Linux
+    - In Powershell, type and run wsl --list --online
+    - Update WSL to 2
+    - Ctrl + R, type and runappwiz.cpl
+    - Click Turn Windows features on/off
+    - Enable Virtual Machine Platform
+    - In Powershell, type and run wsl --install -d Ubuntu
+    - check Systeminfo.exe (look in Hyper-V Requirements)
+    - Activate Virtualization in BIOS
+    - ctrl + r, appwiz.cpl
+    - Click Turn Windows features on/off
+    - Enable: Hyper V
+
+  Ubuntu
+    - JSON File:
+      Move Powershell to the second
+   
+    - sudo apt udpate
+    - sudo apt upgrate
+
+  Fish
+    - Dependencies: sudo apt install build-essential cmake libpcre2-dev gettext
+    - sudo apt-add-repository ppa:fish-shell/release-3
+    - sudo apt update
+    - sudo apt install fish
+    - chsh -s /usr/bin/fish
+    - add set fish_geeting in /.config/fish/config.fish 
+    - Install fisher: curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+    - Install replay: fisher install jorgebucaran/replay.fish 
+
+
+  Startship:
+    - Install: curl -sS https://starship.rs/install.sh | sh
+    - Add in ~/.bashrc: eval "$(starship init bash)"
+    - Add in ~/.config/fhish/config.fish/: starship init fish | source
+
+  Neovim
+    - 
+
+  Git:
+      git config --global user.name "[your_name]"
+      git config --global user.email [your_email]
+      git config --global user.signingkey [your_GPG_ID]
+      git config --global core.editor "nvim --wait"
+      git config --global commit.gpgsign true
+
+  SSH:
+    - Copy ~/.ssh to your WSL home directory
+    - Execute: chmod 400 ~/.ssh/id_ed25519
+
+  GPG:
+    - Execute:  gpg --full-generate-key
+    - Select your key and how long should be valid
+    - Fill your user ID
+    - Insert a secure phrase
+    - Execute:  gpg --list-secret-keys --keyid-format=long
+    - Copy your GPG ID (sec, after /)
+    - Execute: gpg --armor --export [GPG ID]
+    - Copy your GPG key to add in your GitHub account
+
+  Go:
+
+  Python:
+    - Install Miniconda:
+
+  Javascript:
+    - Install: fisher install jorgebucaran/nvm.fish
+
+  TT?
+    -
+
+
+  ncmpcpp?
+    -
+
+  Visual Studio Core
+    - Extensions: Auto Rename, CSS Peek, Indenticator, Python, Live Server, Material Icon,
+                  Nordico, Prettier, Subtle Match Brack, Thunder Client, Vim, Learn Vim,
+                  wrap
+
+    - Raw Config (copy and paste):
+{
+    "workbench.sideBar.location": "right",
+    "workbench.editor.showTabs": false,
+    "workbench.colorTheme": "Nordico",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.minimap.enabled": false,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.overviewRulerBorder": false,
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.formatOnSave": true,
+    "editor.guides.indentation": false,
+    "indenticator.width": 0.1,
+    "indenticator.color.dark": "rgba(255,255,255,0.1)",
+    "editor.matchBrackets": "never",
+    "breadcrumbs.enabled": false,
+    "editor.glyphMargin": false,
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": false,
+}
+
+    - Key bindings (copy and paste):
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    }
+]
+
+     - Reference: https://www.youtube.com/watch?v=Ei1y51K8jQk
+                  https://www.youtube.com/watch?v=fj2tuTIcUys
+
+3. Appearance
+
+# Aply theme, icon, font and wallpaper.
+
+Files
+
+# Taskbar Config
+https://www.youtube.com/watch?v=omsAHeMqkkg
+
+# Change Wallpaper
+
+# Launcher
+- PowerToys
+
+# Conky
+
+# SDDM
+
+# Lock
+
+# Terminal
+
+# Plasma and KDE theme:
+
+-------------------------------------------
+
+References:
+
+https://www.youtube.com/watch?v=ttiA0zRbzko
+https://www.youtube.com/watch?v=jlIC5kGFneA
+
+https://www.youtube.com/watch?v=oaVeT9Ayfc4
+https://www.youtube.com/watch?v=17SDIQy0-tg
+
+https://www.youtube.com/watch?v=aKogc3ULBjc
+https://www.youtube.com/watch?v=7u1miYJmJ_4
+https://www.youtube.com/watch?v=9h3BFM9Bbi0
+https://www.youtube.com/watch?v=Y1RdN-PDYdQ
+
+https://www.oo-software.com/en/shutup10
+https://www.techrepublic.com/article/how-to-increase-shutdown-speeds-in-windows-10/
+
+https://learn.microsoft.com/en-us/windows/wsl/install-manual#step-2---check-requirements-for-running-wsl-2
+
+https://christitus.com/one-tool-for-everything/
+
+https://www.youtube.com/watch?v=1iGlXYu87zc&lc=Ugy_YwzwJR4nvYWK3fJ4AaABAg
+
+https://www.youtube.com/watch?v=u9L5kDlU8rs

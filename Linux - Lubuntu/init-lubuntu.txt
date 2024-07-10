@@ -1,0 +1,421 @@
+sudo vim /etc/systemd/journald.conf
+
+# uncomment and configure the value
+SystemMaxUse=50M
+storage=persistent
+# personnaly i use 2M
+Storage=auto
+SystemMaxFileSize=1G
+SystemMaxFiles=5
+
+# Then restart the journald service
+sudo systemctl restart systemd-journald
+
+sudo journalctl --rotate
+sudo journalctl --vacuum-time=1s
+journalctl --disk-usage
+
+sudo sed -i "s/NoDisplay=true/NoDisplay=false/g" /etc/xdg/autostart/*.desktop
+
+sudo vim /lib/systemd/system/keyboard-setup.service
+after the last line in [Service]
+TimeoutStartSec=10sec
+
+sudo vim /lib/systemd/system/NetworkManager-wait-online.service
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nm-online -s -q --timeout=10
+
+sudo vim /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+sudo update-grub
+
+
+################# SERVICES 
+
+https://www.debugpoint.com/remove-snap-ubuntu/#Remove_Snap_Packages_in_Ubuntu_Linux
+https://www.guia-ubuntu.com/index.php/Servicios_no_necesarios
+
+sudo systemctl disable snapd.service snapd.socket snapd.seeded.service snapd.refresh.service
+
+sudo systemctl disable ModemManager thermald bluetooth cups-browser cups avahi-daemon ntpdate pcmcia ppp powernowd rsync fetchmail postfix
+
+snap list
+sudo snap remove --purge firefox
+sudo snap remove --purge gnome-3-38-2004
+sudo snap remove --purge gtk-common-themes
+sudo snap remove --purge bare
+sudo snap remove --purge core20
+sudo rm -rf /var/cache/snapd/
+sudo snap remove --purge snapd
+sudo apt -y remove --autoremove snapd
+rm -rf ~/snap
+
+sudo vim /etc/apt/preferences.d/nosnap.pref
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+
+sudo apt update
+
+sudo apt install --install-suggests gnome-software
+
+sudo add-apt-repository ppa:mozillateam/ppa
+sudo apt update
+sudo apt install -t 'o=LP-PPA-mozillateam' firefox
+
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:${distro_codename}";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
+
+sudo nvim /etc/apt/preferences.d/mozillateamppa
+Package: firefox*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 501
+
+
+
+################# CONFIG
+
+- LibreOFfice (set in tables - User Interface and Tabbed)
+- Date format in desktop: '<font size="-1">'HH:mm:ss'<br/><font size="1">'ddd, d MMM. yyyy'
+- Dual boot date: timedatectl set-local-rtc 1
+- Discover (Flatpak): https://www.youtube.com/watch?v=TnqyzyLGkqU
+sudo apt -y install plasma-discover-backend-flatpak
+
+- Swapfile to 2GB: https://www.youtube.com/watch?v=gmJTa9GGFgo
+	https://www.howtogeek.com/455981/how-to-create-a-swap-file-on-linux/
+	https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04
+
+sudo swapoff /swapfile
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
+
+vim /etc/fstab
+change the default with /swapfile none swap sw 0 0
+
+sudo sysctl vm.swappiness=10
+sudo sysctl vm.vfs_cache_pressure=50
+sudo vim /etc/sysctl.conf
+
+Write in the bottom: vm.swappiness=10 and vm.vfs_cache_pressure=50
+
+
+- Poetry like a Python manager env
+
+cp /media/j4breu/01D94AA716B9CED0/Users/Joel/Desktop/Joel/Programas/Data/Linux/Lubuntu.zip ~/Desktop/
+cd ~/Desktop/
+unzip ~/Desktop/Lubuntu.zip
+
+mv ~/Desktop/Lubuntu/Documents/* ~/Documents/
+mv ~/Desktop/Lubuntu/Music/* ~/Music/
+mv ~/Desktop/Lubuntu/Pictures/* ~/Pictures/
+mv ~/Desktop/Lubuntu/Templates/* ~/Templates/
+
+################# Programs 
+cd ~/Desktop/Lubuntu/Programs/
+
+- Vivaldi (and import):
+
+sudo apt install ./vivaldi-stable_5.7.2921.65-1_amd64.deb
+
+Set your configuration
+Extensions: AdGuard AdBlocker, ClearURLs Add-on, Privacy Badger
+
+Configuration: (Privacy) Unselect DNS and Form Assist. Set Block Trackers.
+			Manages Sources -> Easy Privacy
+			Unselect Save Passwords
+			Select Block All Third Cookies
+			
+- NVIM (and config): https://github.com/neovim/neovim/releases/tag/stable
+
+sudo apt install curl
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage --appimage-extract
+
+sudo mv squashfs-root /
+sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+nvim
+
+sudo mv ./nvim ~/.config/
+nvim .basrc
+nvim ~/.bashrc
+
+
+
+- tt:
+sudo apt update
+sudo apt -y install curl
+sudo curl -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt-linux -o /usr/local/bin/tt && sudo chmod +x /usr/local/bin/tt
+sudo curl -o /usr/share/man/man1/tt.1.gz -L https://github.com/lemnos/tt/releases/download/v0.4.2/tt.1.gz
+
+- BitWarden (and import):
+sudo apt -y install ./Bitwarden-2023.3.1-amd64.deb
+Import the passwords
+
+- Kazam:
+sudo add-apt-repository ppa:kazam-team/stable-series
+sudo apt-get update
+sudo apt-get install kazam
+
+- Free Download Manager:
+sudo apt -y install ./freedownloadmanager.deb
+
+- NCMPCPP AND MDP: https://www.youtube.com/watch?v=F8fnYjYe5bU
+sudo apt -y install mpd
+sudo apt -y install ncmpcpp
+mkdir -p ~/.mpd && cp -Rv mpd.conf ~/.mpd/
+touch ~/.mpd/mpd.db ~/.mpd/mpd.pid ~/.mpd/mpd.log
+mkdir -p ~/.ncmpcpp && cp -Rv config ~/.ncmpcpp/
+
+Configuration:
+	systemctl start mpd
+	systemctl --user enable mpd.service
+	mpd
+	ncmpcpp
+
+Redshift:
+sudo apt-get install redshift
+
+- PPSSPP:
+sudo apt -y install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install -y flathub org.ppsspp.PPSSPP
+flatpak run org.ppsspp.PPSSPP
+
+- Mega:
+sudo apt -y install ./megasync-xUbuntu_22.10_amd64deb
+Set the user
+
+- Librewolf
+sudo apt update && sudo apt install -y wget gnupg lsb-release apt-transport-https ca-certificates
+
+distro=$(if echo " una vanessa focal jammy bullseye vera uma" | grep -q " $(lsb_release -sc) "; then echo $(lsb_release -sc); else echo focal; fi)
+
+wget -O- https://deb.librewolf.net/keyring.gpg | sudo gpg --dearmor -o /usr/share/keyrings/librewolf.gpg
+
+sudo tee /etc/apt/sources.list.d/librewolf.sources << EOF > /dev/null
+Types: deb
+URIs: https://deb.librewolf.net
+Suites: $distro
+Components: main
+Architectures: amd64
+Signed-By: /usr/share/keyrings/librewolf.gpg
+EOF
+
+sudo apt update
+
+sudo apt install librewolf -y
+
+- VSC:
+File in downloads
+Extensions: Auto Rename, CSS Peek, Django, Indenticator, Python, Live Server, Material Icon, Nordico, Prettier, Subtle Match Brack, Thunder Client, Vim, Learn Vim, wrap
+Config and theme: https://www.youtube.com/watch?v=Ei1y51K8jQk
+		  https://www.youtube.com/watch?v=fj2tuTIcUys
+
+Config:
+{
+    "workbench.sideBar.location": "right",
+    "workbench.editor.showTabs": false,
+    "workbench.colorTheme": "Nordico",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.minimap.enabled": false,
+    "editor.scrollbar.vertical": "hidden",
+    "editor.overviewRulerBorder": false,
+    "editor.hideCursorInOverviewRuler": true,
+    "editor.formatOnSave": true,
+    "editor.guides.indentation": false,
+    "indenticator.width": 0.1,
+    "indenticator.color.dark": "rgba(255,255,255,0.1)",
+    "editor.matchBrackets": "never",
+    "breadcrumbs.enabled": false,
+    "editor.glyphMargin": false,
+    "workbench.statusBar.visible": true,
+    "workbench.activityBar.visible": false,
+}
+
+Ctrl + Shift + p = shortcuts = new file
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    }
+]
+
+
+
+
+################# Appearance
+
+cd ~/Desktop/Lubuntu/Appearance
+
+sudo add-apt-repository ppa:lubuntu-dev/backports
+sudo apt dist-upgrade -y
+
+sudo apt -y install kwin-x11 --no-install-recommends
+sudo apt -y install systemsettings kwin-style-breeze qt5-style-kvantum subversion
+
+unzip lxqt-kcm-deb.zip
+sudo apt -y install ./lxqt-kcm-deb/lxqt-kcm-kwin_0.0.1-1_all.deb
+sudo apt -y install ./lxqt-kcm-deb/lxqt-kcm_0.0.1-1_all.deb
+sudo apt -y install ./lxqt-kcm-deb/lxqt-kcm-appearance_0.0.1-1_all.deb
+
+svn export https://github.com/EliverLara/Nordic/trunk/kde/aurorae/Nordic
+mkdir -p ~/.local/share/aurorae/themes && cp -Rv Nordic/ ~/.local/share/aurorae/themes/
+
+svn export https://github.com/EliverLara/Nordic/trunk/kde/colorschemes
+mkdir -p ~/.local/share/color-schemes && cp -Rv colorschemes/*.colors ~/.local/share/color-schemes
+
+unzip LXQt-theme-Dark-Leaf.zip
+mkdir -p ~/.local/share/lxqt/themes && cp -Rv Dark-Leaf ~/.local/share/lxqt/themes
+
+git clone https://github.com/vinceliuice/Tela-circle-icon-theme.git
+./Tela-circle-icon-theme/install.sh nord
+
+sudo apt -y install qt5-style-kvantum qt5-style-kvantum-themes
+
+svn export https://github.com/EliverLara/Nordic/trunk/kde/kvantum
+mkdir -p ~/.config/Kvantum && cp -Rv kvantum/* ~/.config/Kvantum/
+
+git clone https://github.com/alvatip/Nordzy-cursors.git
+cd Nordzy-cursors
+./install.sh
+cd ..
+
+unzip fonts.zip
+cp -Rv fonts ~/.local/share/
+
+# Aply theme, icon, font and wallpaper.
+
+- LXQt Appearance Configuration
+	Widget Style: kvantum-dark
+	Icons theme: Tela circle nord dark
+	LXQt theme: Dark Leaf
+	Font: Roboto, 10
+	Cursor: Nordzy-cursors
+
+- Quick Settings
+a. Appearance - Global Theme
+	Application Style: kvantum-dark
+	Colors: Nordic
+	Window Decorations: Nordic
+	Fonts: Adjust All Fonts... (Roboto, 10)
+	       Fixed width (FiraCode Nerd Font Mono, 10)
+	Icons: Tela circle nord dark
+	Cursors: Nordzy-cursors
+b. Workspace Behavior - Desktop Effects
+	Select: Background contrast
+		Blur
+		Translucency
+	
+- Kvantum Manager: In Change/Delete theme, select Nordic-Solid
+
+- Session Settings: In Basic Settings, Window Manager, select kwim_x11
+
+- Logout
+
+# Panel Config
+cd ~/Desktop/Lubuntu/Appearance
+unzip lxqt-panel.zip
+killall lxqt-panel
+mv ~/.config/lxqt/panel.conf ~/.config/lxqt/panel-00.conf
+cp panel.conf ~/.config/lxqt/
+lxqt-panel > /dev/null &
+
+- Logout
+
+# Change Wallpaper
+- Desktop Preferences, Background, Browse. (Desactivate all in Advanced)
+
+# Plank
+sudo apt -y install plank
+
+- Run plank.
+
+- Preferences, in Appearance
+	Theme: Transparent
+	Size: 24
+	Zoom: 125
+
+- Add task in Session Setings (plank, plank, dont wait)
+
+# Ulaunche
+Desactivate the default task launcher.
+
+sudo add-apt-repository ppa:agornostal/ulauncher && sudo apt update && sudo apt -y install ulauncher
+
+run ulauncher
+
+cd ~/Desktop/Lubuntu/Appearance
+unzip ulauncher-theme-nordian-dark.zip
+mkdir -p ~/.config/ulauncher/user-themes && cp -Rv nordian-dark ~/.config/ulauncher/user-themes/
+
+Config: Change to Ctrl + R and Launch at Login
+
+# Conky
+sudo apt install conky-all jq curl -y
+unzip conky-shaula-mod.zip
+mkdir -p ~/.config/conky && cp -Rv Shaula ~/.config/conky
+cp -Rv Shaula/conky_shaula_autostart.desktop ~/.config/autostart/
+nvim ~/.config/conky/Shaula/scripts/weather.sh
+city_id=3629655
+
+
+- LXQt Kwin Settings
+	Window Rules: Import the file in ~/Desktop/Lubuntu/Appearance/Shaula
+		 
+
+- Logout
+
+# SDDM
+cd ~/Desktop/Lubuntu/Appearance
+unzip sddm-sugar-candy-mod.zip
+sudo cp -Rv sugar-candy /usr/share/sddm/themes/
+
+sudo nvim /etc/sddm.conf
+
+In the end copy:
+[Theme]
+Current=sugar-candy
+
+# Lock
+sudo apt -y install i3lock-fancy
+
+nvim ~/.config/lxqt/lxqt.conf
+
+[Screensaver]
+lock_command=i3lock-fancy
+
+- Change the default command key to lock
+
+- LXQt Session Settings, Autostart, deactivate XScreenSaver
+
+# Terminal
+svn export https://github.com/EliverLara/Nordic/trunk/kde/konsole
+sudo cp -Rv konsole/Nordic.colorscheme /usr/share/qtermwidget5/color-schemes
+
+- Set in preferences
+	Font: FiraCode Nerd  Font Mono, 10
+	Color scheme: Nordic
+	Widget style: kvantum-dark
+	Select Hide tab bar with only one tab
+	Unselect Show a border around and menu bar
+
+
+
+# Plasma and KDE theme:
+git clone https://github.com/EliverLara/Nordic-kde.git
+mkdir -p ~/.local/share/plasma/desktoptheme && cp -Rv Nordic-kde/ ~/.local/share/plasma/desktoptheme
+
+# - Quick Settings, Appearance, Plasma Style: Nordic
+
+rm -r Nordic
+git clone https://github.com/EliverLara/Nordic.git
+mkdir -p ~/.local/share/themes && cp -Rv Nordic ~/.local/share/themes
+
+- LXQt Appearance Settings, GTK style: Nordic, Nordic
+
