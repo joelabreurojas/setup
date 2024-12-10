@@ -417,7 +417,7 @@
     - Enable: Windows Hypervisor Platform, Windows Subsystem for Linux
     - In Powershell, type and run wsl --list --online
     - Update WSL to 2
-    - Ctrl + R, type and runappwiz.cpl
+    - Ctrl + R, type and run appwiz.cpl
     - Click Turn Windows features on/off
     - Enable Virtual Machine Platform
     - In Powershell, type and run wsl --install -d Ubuntu
