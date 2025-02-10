@@ -491,13 +491,12 @@
 
   Visual Studio Core
     - Extensions: Auto Rename, CSS Peek, Indenticator, Python, Live Server, Material Icon,
-                  Nordico, Prettier, Subtle Match Brack, Thunder Client, Vim, Learn Vim,
-                  wrap
+                  Nordico, Prettier, Subtle Match Brack, Thunder Client, Vim, Learn Vim
 
     - Raw Config (copy and paste):
 {
     "workbench.sideBar.location": "right",
-    "workbench.editor.showTabs": false,
+    "workbench.editor.showTabs": "none",
     "workbench.colorTheme": "Nordico",
     "workbench.iconTheme": "material-icon-theme",
     "editor.minimap.enabled": false,
@@ -512,7 +511,11 @@
     "breadcrumbs.enabled": false,
     "editor.glyphMargin": false,
     "workbench.statusBar.visible": true,
-    "workbench.activityBar.visible": false,
+    "files.autoSave": "afterDelay",
+    "git.autofetch": true,
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "workbench.activityBar.location": "hidden",
+    "extensions.ignoreRecommendations": true,
 }
 
     - Key bindings (copy and paste):
@@ -522,11 +525,20 @@
         "key": "a",
         "command": "explorer.newFile",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
     }
 ]
-
      - Reference: https://www.youtube.com/watch?v=Ei1y51K8jQk
                   https://www.youtube.com/watch?v=fj2tuTIcUys
+		  https://superuser.com/questions/1270103/how-to-switch-the-cursor-between-terminal-and-code-in-vscode
 
 3. Appearance
 
