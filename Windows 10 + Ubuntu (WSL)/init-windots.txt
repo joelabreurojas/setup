@@ -482,6 +482,21 @@
   Javascript:
     - Install: fisher install jorgebucaran/nvm.fish
 
+  Docker CLI:
+    - Install: curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+    - Add group: sudo usermod -aG docker $USER
+    - For Ubuntu 22.04: sudo update-alternatives --config iptables
+    - Choose the (1) option
+    - Compose: sudo apt-get update && sudo apt-get install docker-compose-plugin
+    - Add into your config.fish:
+        # docker
+        if grep -q "microsoft" /proc/version >/dev/null 2>&1
+          if service docker status 2>&1 | grep -q "is not running"
+            wsl.exe --distribution "(WSL_DISTRO_NAME)" --user root \
+              --exec service docker start >/dev/null 2>&1
+          end
+        end
+
   TT?
     -
 
