@@ -1,4 +1,4 @@
-1. Setup
+ 1. Setup
   a. Create a restore point
     - Just search it... assign it 5%
 
@@ -440,7 +440,7 @@
     - sudo apt update
     - sudo apt install fish
     - chsh -s /usr/bin/fish
-    - add set fish_geeting in /.config/fish/config.fish 
+    - add set fish_greeting in /.config/fish/config.fish 
     - Install fisher: curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
     - Install replay: fisher install jorgebucaran/replay.fish 
 
@@ -604,3 +604,4 @@ https://christitus.com/one-tool-for-everything/
 https://www.youtube.com/watch?v=1iGlXYu87zc&lc=Ugy_YwzwJR4nvYWK3fJ4AaABAg
 
 https://www.youtube.com/watch?v=u9L5kDlU8rs
+
