@@ -448,7 +448,7 @@
   Startship:
     - Install: curl -sS https://starship.rs/install.sh | sh
     - Add in ~/.bashrc: eval "$(starship init bash)"
-    - Add in ~/.config/fhish/config.fish/: starship init fish | source
+    - Add in ~/.config/fish/config.fish/: starship init fish | source
 
   Neovim
     - 
@@ -604,4 +604,5 @@ https://christitus.com/one-tool-for-everything/
 https://www.youtube.com/watch?v=1iGlXYu87zc&lc=Ugy_YwzwJR4nvYWK3fJ4AaABAg
 
 https://www.youtube.com/watch?v=u9L5kDlU8rs
+
 
