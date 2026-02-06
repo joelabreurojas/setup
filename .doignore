@@ -1,0 +1,6 @@
+screenshots/
+*.md
+.git
+.gitignore
+.doignore
+install

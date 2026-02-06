@@ -1,0 +1,10 @@
+# Ignore the CONTENTS of the sandbox, but keep the folder
+.generated/*
+!.generated/.gitkeep
+
+# Machine-specific variables
+host_vars/*.yaml
+!host_vars/template.yaml
+
+# Logs
+*.log
